@@ -8,12 +8,12 @@ import type { TopTaskInjector } from '@/lib/types'
 import { Plus } from 'lucide-vue-next'
 
 const props = defineProps<{ newTask: string }>()
-const { updateTopTask } = inject<TopTaskInjector>('topTask')
+const { updateTopTask } = inject<TopTaskInjector>('topTask') as TopTaskInjector
 const emit = defineEmits(['taskAdded'])
 
 function pushTask() {
   if (!props.newTask) return
-  
+
   db.tasks.add({ content: props.newTask })
   updateTopTask({ id: 1, content: props.newTask })
   emit('taskAdded')

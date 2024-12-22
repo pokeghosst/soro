@@ -7,11 +7,17 @@ import type { TopTaskInjector } from '@/lib/types'
 
 import { Check } from 'lucide-vue-next'
 
-const { updateTopTask } = inject<TopTaskInjector>('topTask')
+const { updateTopTask } = inject<TopTaskInjector>('topTask') as TopTaskInjector
 
 async function popTask() {
   const last = await db.tasks.toCollection().last()
+
+  if (!last) return
+
   const nextToLast = await db.tasks.get(last.id - 1)
+
+  if (!nextToLast) return
+
   db.tasks.delete(last.id)
   updateTopTask(nextToLast)
 }
