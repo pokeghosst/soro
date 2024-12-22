@@ -1,0 +1,21 @@
+@import 'minireset.min.css';
+@import 'typography.css';
+
+:root {
+  --color-bg: oklch(88.7% 0.0338 143.9);
+  --color-shadow: oklch(81.63% 0.0197 119.82);
+  --color-card-bg: oklch(87.99% 0.0405 244.82);
+  --color-selected: oklch(91.4% 0.0405 244.82);
+  --color-card-border: oklch(48.95% 0.0542 243.52);
+  --color-text: oklch(44.76% 0.0946 244.41);
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--color-bg);
+}
