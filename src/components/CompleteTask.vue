@@ -16,8 +16,6 @@ async function popTask() {
 
   const nextToLast = await db.tasks.get(last.id - 1)
 
-  if (!nextToLast) return
-
   db.tasks.delete(last.id)
   updateTopTask(nextToLast)
 }

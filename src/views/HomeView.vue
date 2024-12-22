@@ -10,7 +10,7 @@ import AddFirstTaskButton from '@/components/AddFirstTaskButton.vue'
 
 const topTask: Ref<Task | undefined> = ref(undefined)
 
-function updateTopTask(task: Task) {
+function updateTopTask(task: Task | undefined) {
   topTask.value = task
 }
 

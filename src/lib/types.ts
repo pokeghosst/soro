@@ -7,7 +7,7 @@ interface Task {
 
 interface TopTaskInjector {
   topTask: Ref<Task>
-  updateTopTask: (value: Task) => void
+  updateTopTask: (value: Task | undefined) => void
 }
 
 export type { Task, TopTaskInjector }
