@@ -1,28 +1,12 @@
 <script setup lang="ts">
-import { provide, type Ref, ref } from 'vue'
 
-import { db } from '@/lib/db'
+import { useTaskStack } from '@/composables/useTaskStack'
 
-import type { Task } from '@/lib/types'
-
-import TaskCard from '@/components/TaskCard.vue'
 import AddFirstTaskButton from '@/components/AddFirstTaskButton.vue'
+import TaskCard from '@/components/TaskCard.vue'
 
-const topTask: Ref<Task | undefined> = ref(undefined)
+const {topTask} = useTaskStack()
 
-function updateTopTask(task: Task | undefined) {
-  topTask.value = task
-}
-
-provide('topTask', {
-  topTask,
-  updateTopTask
-})
-
-db.tasks.toCollection().last()
-  .then(task => {
-    topTask.value = task
-  })
 </script>
 
 <template>

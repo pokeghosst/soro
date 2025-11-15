@@ -1,28 +1,32 @@
+<!--
+soro -- Super-focused monotasking task stack.
+Copyright (C) 2024-2025 Pokeghost.
+
+soro is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published
+by the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+soro is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+-->
+
 <script setup lang="ts">
-import { inject } from 'vue'
+import { useTaskStack } from '@/composables/useTaskStack';
 
-import { db } from '@/lib/db'
+import { Check } from 'lucide-vue-next';
 
-import type { TopTaskInjector } from '@/lib/types'
+const {pop} = useTaskStack()
 
-import { Check } from 'lucide-vue-next'
-
-const { updateTopTask } = inject<TopTaskInjector>('topTask') as TopTaskInjector
-
-async function popTask() {
-  const last = await db.tasks.toCollection().last()
-
-  if (!last) return
-
-  const nextToLast = await db.tasks.get(last.id - 1)
-
-  db.tasks.delete(last.id)
-  updateTopTask(nextToLast)
-}
 </script>
 
 <template>
-  <button @click="popTask">
+  <button @click="pop">
     <Check stroke-width="2.2" />
   </button>
 </template>

@@ -1,21 +1,46 @@
-<script setup lang="ts">
-import { ref } from 'vue'
+<!--
+soro -- Super-focused monotasking task stack.
+Copyright (C) 2024-2025 Pokeghost.
 
-import AddTask from '@/components/AddTask.vue'
+soro is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published
+by the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+soro is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+-->
+
+<script setup lang="ts">
+import { ref } from 'vue';
+
+import { useTaskStack } from '@/composables/useTaskStack';
+
+import { Plus } from 'lucide-vue-next';
 
 const props = defineProps({ slideUp: Boolean })
 
 const task = ref('')
 
-function clearTask() {
+const {push} = useTaskStack()
+
+function pushTaskAndClear() {
+  push(task.value)
   task.value = ''
 }
 </script>
 
 <template>
-  <div class="new-task" :class="slideUp ? 'slide-up' : 'grow'">
+  <div class="new-task" :class="props.slideUp ? 'slide-up' : 'grow'">
     <input placeholder="What will you achieve?" v-model="task" />
-    <AddTask :new-task="task" @task-added="clearTask" />
+    <button @click="pushTaskAndClear()">
+    <Plus stroke-width="2.2" />
+    </button>
   </div>
 </template>
 
