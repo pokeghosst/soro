@@ -1,4 +1,5 @@
-# ![soro logo](public/favicon.ico) soro
+# ![soro logo](app/public/favicon.ico) soro
+
 [![GitHub license](https://img.shields.io/github/license/pokeghosst/pokebook.svg)](https://github.com/pokeghosst/soro/blob/main/COPYING)
 ![Version](https://img.shields.io/github/v/release/pokeghosst/soro)
 
