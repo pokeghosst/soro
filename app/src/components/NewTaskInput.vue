@@ -23,22 +23,38 @@ import { useTaskStack } from '@/composables/useTaskStack';
 
 import { Plus } from 'lucide-vue-next';
 
-const props = defineProps({ slideUp: Boolean })
+const { slideUp } = defineProps({ slideUp: Boolean })
 
 const task = ref('')
-
 const {push} = useTaskStack()
 
-function pushTaskAndClear() {
-  push(task.value)
+function clearTask() {
   task.value = ''
 }
+
+function validateTask() {
+  return task.value.trim().length > 0
+}
+
+async function addTask() {
+  if (!validateTask()) {
+    return
+  }
+
+  try {
+    await push(task.value.trim())
+    clearTask()
+  } catch (e) {
+    // TODO
+  }
+}
+
 </script>
 
 <template>
-  <div class="new-task" :class="props.slideUp ? 'slide-up' : 'grow'">
+  <div class="new-task" :class="slideUp ? 'slide-up' : 'grow'">
     <input placeholder="What will you achieve?" v-model="task" />
-    <button @click="pushTaskAndClear()">
+    <button @click="addTask()" :disabled="!validateTask()">
     <Plus stroke-width="2.2" />
     </button>
   </div>

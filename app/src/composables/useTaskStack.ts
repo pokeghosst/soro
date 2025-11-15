@@ -16,8 +16,9 @@ You should have received a copy of the GNU Affero General Public License
 along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { db } from '@/lib/db'
 import { ref } from 'vue'
+
+import { db } from '@/lib/db'
 
 import type { Task } from '@/lib/types'
 
@@ -28,7 +29,8 @@ async function loadTop() {
   try {
     topTask.value = await db.tasks.toCollection().last()
   } catch (e) {
-    // TODO
+    console.error(e)
+    throw e
   }
 }
 
@@ -38,7 +40,8 @@ async function push(content: string) {
 
     topTask.value = { id, content }
   } catch (e) {
-    // TODO
+    console.error(e)
+    throw e
   }
 }
 
@@ -52,7 +55,8 @@ async function pop() {
       topTask.value = tasks.length > 1 ? tasks[1] : undefined
     }
   } catch (e) {
-    // TODO
+    console.error(e)
+    throw e
   }
 }
 
