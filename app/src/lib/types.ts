@@ -21,4 +21,10 @@ interface Task {
   content: string
 }
 
-export type { Task }
+interface Toast {
+  id: `${string}-${string}-${string}-${string}-${string}`
+  message: string
+  type: 'success' | 'error' | 'warning' | 'info'
+}
+
+export type { Task, Toast }

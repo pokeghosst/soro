@@ -17,20 +17,27 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 -->
 
 <script setup lang="ts">
-import { useTaskStack } from '@/composables/useTaskStack';
+import { useTaskStack } from '@/composables/useTaskStack'
+import { useToast } from '@/composables/useToast'
 
-import { Check } from 'lucide-vue-next';
+import { Check } from 'lucide-vue-next'
 
-const {pop} = useTaskStack()
+const { pop } = useTaskStack()
+const { showToast } = useToast()
 
+function popTask() {
+  try {
+    pop()
+  } catch {
+    showToast('Error when completing task!', 'error')
+  }
+}
 </script>
 
 <template>
-  <button @click="pop">
+  <button @click="popTask()">
     <Check stroke-width="2.2" />
   </button>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

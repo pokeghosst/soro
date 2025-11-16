@@ -17,16 +17,18 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 -->
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref } from 'vue'
 
-import { useTaskStack } from '@/composables/useTaskStack';
+import { useTaskStack } from '@/composables/useTaskStack'
+import { useToast } from '@/composables/useToast'
 
-import { Plus } from 'lucide-vue-next';
+import { Plus } from 'lucide-vue-next'
 
 const { slideUp } = defineProps({ slideUp: Boolean })
 
 const task = ref('')
-const {push} = useTaskStack()
+const { push } = useTaskStack()
+const { showToast } = useToast()
 
 function clearTask() {
   task.value = ''
@@ -44,18 +46,17 @@ async function addTask() {
   try {
     await push(task.value.trim())
     clearTask()
-  } catch (e) {
-    // TODO
+  } catch {
+    showToast('Error when adding task!', 'error')
   }
 }
-
 </script>
 
 <template>
   <div class="new-task" :class="slideUp ? 'slide-up' : 'grow'">
     <input placeholder="What will you achieve?" v-model="task" />
     <button @click="addTask()" :disabled="!validateTask()">
-    <Plus stroke-width="2.2" />
+      <Plus stroke-width="2.2" />
     </button>
   </div>
 </template>
@@ -94,7 +95,7 @@ input {
   width: 100%;
   display: block;
   margin: 0 auto;
-  font-family: "Sour Gummy", sans-serif;
+  font-family: 'Sour Gummy', sans-serif;
   font-size: 1.4rem;
   padding: 0 20px;
 }
