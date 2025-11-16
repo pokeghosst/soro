@@ -8,6 +8,10 @@
   --color-selected: oklch(91.4% 0.0405 244.82);
   --color-card-border: oklch(48.95% 0.0542 243.52);
   --color-text: oklch(44.76% 0.0946 244.41);
+
+  --color-toast-error: oklch(65% 0.18 25);
+  --color-toast-success: oklch(75% 0.15 145);
+  --color-toast-warning: oklch(80% 0.16 85);
 }
 
 *,

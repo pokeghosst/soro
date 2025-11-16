@@ -24,31 +24,52 @@ const { toasts, dismissToast } = useToast()
 
 <template>
   <div class="toast-container">
-    <div
-      v-for="toast in toasts"
-      :key="toast.id"
-      @click="dismissToast(toast.id)"
-      :class="`toast toast--${toast.type}`"
-    >
-      {{ toast.message }}
-    </div>
+    <TransitionGroup name="toast">
+      <div
+        v-for="toast in toasts"
+        :key="toast.id"
+        @click="dismissToast(toast.id)"
+        :class="`toast toast--${toast.type}`"
+      >
+        {{ toast.message }}
+      </div>
+    </TransitionGroup>
   </div>
 </template>
 
 <style scoped>
-.toast {
+.toast-container {
   position: fixed;
   top: 1rem;
   right: 1rem;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  pointer-events: none;
+}
+
+.toast {
+  position: relative;
   padding: 0.75rem 1.25rem;
   border-radius: 0.5rem;
   color: white;
   background-color: #333;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   z-index: 9999;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   cursor: pointer;
-  transform: translateX(0);
-  transition: transform 3s ease;
+  pointer-events: auto;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.toast-enter-active,
+.toast-leave-active {
+  transition: all 0.5s ease;
+}
+.toast-enter-from,
+.toast-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
 }
 
 .toast--success {

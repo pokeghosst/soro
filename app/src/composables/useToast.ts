@@ -20,11 +20,17 @@ import { readonly, ref } from 'vue'
 
 import type { Toast } from '@/lib/types'
 
+const DEFAULT_TOAST_DURATION = 3000
+
 const toasts = ref<Toast[]>([])
 const timeouts = new Map<string, ReturnType<typeof setTimeout>>()
 
 export function useToast() {
-  function showToast(message: string, type: Toast['type'] = 'info', duration = 3000) {
+  function showToast(
+    message: string,
+    type: Toast['type'] = 'info',
+    duration = DEFAULT_TOAST_DURATION,
+  ) {
     if (!message.trim()) return
 
     const id = crypto.randomUUID()
